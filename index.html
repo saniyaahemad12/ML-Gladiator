@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ML Gladiator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav>
+    <div class="logo">⚔️ ML Gladiator</div>
+    <ul class="navbar">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#select-task">Select Task</a></li>
+      <li><a href="#upload-section">Upload Dataset</a></li>
+      <li><a href="#algorithm-selection">Select Algorithms</a></li>
+    </ul>
+  </nav>
+
+  <header class="hero-section" id="home">
+    <div class="hero-text">
+      <h1>⚔️ Battle of Algorithms</h1>
+      <p>Upload your dataset and let top ML algorithms compete for the best performance.</p>
+      <a href="#select-task" class="cta-button">Get Started</a>
+    </div>
+    <div class="hero-image">
+      <img src="{{ url_for('static', filename='ml_hero.png') }}" alt="Machine Learning Art" />
+    </div>
+  </header>
+
+  <!-- Select Task Section -->
+  <section id="select-task" class="section">
+    <h2>Select Task</h2>
+    <div class="task-buttons">
+      <button onclick="selectTask('classification')">Classification</button>
+      <button onclick="selectTask('regression')">Regression</button>
+      <button onclick="selectTask('clustering')">Clustering</button>
+      <button onclick="selectTask('reinforcement')">Reinforcement Learning</button>
+    </div>
+    <p id="selected-task-message" style="margin-top: 20px; font-weight: bold;"></p>
+  </section>
+
+  <!-- Upload Dataset Section -->
+  <section id="upload-section" class="section" style="display: none;">
+    <h2>Upload Dataset</h2>
+    <input type="file" id="fileInput" accept=".csv">
+    <button onclick="uploadDataset()">Submit Dataset</button>
+    <div id="upload-results"></div>
+  </section>
+
+  <!-- Algorithm Selection Section -->
+  <section id="algorithm-selection" class="section" style="display: none;">
+    <h2>Select Algorithms for <span id="selected-task"></span></h2>
+    <div class="algo-buttons">
+      <!-- Buttons will be dynamically added here based on the selected task -->
+    </div>
+    <button id="compare-button" style="display: none;" onclick="compareAlgorithms()">Compare Algorithms</button>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by Saniya Ahemad | ML Gladiator</p>
+  </footer>
+
+  <script>
+    let selectedTask = "";
+    let selectedAlgorithms = [];
+
+    // Function to handle task selection
+    function selectTask(task) {
+      selectedTask = task;
+      document.getElementById("selected-task-message").innerText = `Selected Task: ${task.charAt(0).toUpperCase() + task.slice(1)}`;
+      document.getElementById("upload-section").style.display = "block"; // Show upload section
+    }
+
+    // Function to upload dataset
+    async function uploadDataset() {
+      const fileInput = document.getElementById("fileInput");
+      const resultsDiv = document.getElementById("upload-results");
+      resultsDiv.innerHTML = ""; // Clear previous results
+
+      if (!fileInput.files.length) {
+        alert("Please select a CSV file.");
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      formData.append("task", selectedTask);
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data.error || "Failed to upload dataset.");
+        }
+
+        resultsDiv.innerHTML = `<p style="color: green;">${data.message}</p>`;
+        document.getElementById("algorithm-selection").style.display = "block"; // Show algorithm selection section
+        generateAlgorithmButtons(selectedTask);
+      } catch (err) {
+        console.error(err);
+        resultsDiv.innerHTML = `<p style="color: red;">${err.message}</p>`;
+      }
+    }
+
+    // Function to generate algorithm buttons
+    function generateAlgorithmButtons(task) {
+      const algoButtonsContainer = document.querySelector(".algo-buttons");
+      algoButtonsContainer.innerHTML = ""; // Clear previous buttons
+
+      const taskAlgorithms = {
+        classification: ["Logistic Regression", "SVM", "Random Forest", "Decision Tree"],
+        regression: ["Linear Regression", "Ridge Regression", "Lasso Regression", "SVR"],
+        clustering: ["K-Means", "DBSCAN", "Hierarchical Clustering", "Gaussian Mixture"],
+        reinforcement: ["Q-Learning", "SARSA", "Deep Q-Network", "Policy Gradient"]
+      };
+
+      if (taskAlgorithms[task]) {
+        taskAlgorithms[task].forEach((algo) => {
+          const button = document.createElement("button");
+          button.innerText = algo;
+          button.onclick = () => toggleAlgorithmSelection(algo, button);
+          button.className = "algo-button";
+          algoButtonsContainer.appendChild(button);
+        });
+      } else {
+        algoButtonsContainer.innerHTML = "<p>No algorithms available for this task.</p>";
+      }
+    }
+
+    // Function to toggle algorithm selection
+    function toggleAlgorithmSelection(algo, button) {
+      if (selectedAlgorithms.includes(algo)) {
+        selectedAlgorithms = selectedAlgorithms.filter((a) => a !== algo); // Remove algorithm
+        button.classList.remove("selected");
+      } else {
+        selectedAlgorithms.push(algo); // Add algorithm
+        button.classList.add("selected");
+      }
+
+      // Show or hide the compare button
+      document.getElementById("compare-button").style.display = selectedAlgorithms.length > 0 ? "block" : "none";
+    }
+
+    // Function to compare algorithms
+    async function compareAlgorithms() {
+      if (selectedAlgorithms.length === 0) {
+        alert("Please select at least one algorithm to compare.");
+        return;
+      }
+    
+      try {
+        const response = await fetch('/compare', {
+          method: 'POST', // Ensure this is a POST request
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            task: selectedTask,
+            algorithms: selectedAlgorithms
+          })
+        });
+    
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.error || "Failed to compare algorithms.");
+        }
+    
+        // Redirect to the results page
+        window.location.href = "/compare"; // Ensure this matches the backend route
+      } catch (err) {
+        console.error(err);
+        alert(err.message);
+      }
+    }
+  </script>
+</body>
+</html>
