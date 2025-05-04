@@ -1,0 +1,298 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+  background-color: #f4f7fa;
+  color: #222;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: transparent;
+  color: white;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+.navbar {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav {
+  background-color: #ffffff; /* Optional: make nav background white for contrast */
+  color: #000000; /* This changes text inside nav to black */
+}
+
+nav ul li a {
+  color: #000000; /* Makes link text black */
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #007bff; /* Optional: on hover, change color to blue */
+}
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(to right, #f0f8ff, #d8f3dc); /* Light blue-green gradient */
+  color: #1a1a1a;
+}
+
+
+.hero-text {
+  flex: 1;
+  padding-right: 2rem;
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  background-color: #00c6ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #00a2d4;
+}
+
+.hero-image img {
+  width: 350px;
+  border-radius: 10px;
+}
+
+/* Sections */
+.section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+form {
+  margin-top: 1rem;
+}
+
+input[type="file"] {
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+button[type="submit"] {
+  padding: 0.7rem 1.5rem;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #135cb3;
+}
+
+/* Step Cards */
+.steps {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.step-card {
+  background: #fff;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 1 200px;
+}
+
+/* Algorithms */
+.algo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.algo-card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 180px;
+  text-align: center;
+}
+
+.algo-card img {
+  width: 60px;
+  margin-bottom: 0.5rem;
+}
+.task-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.task-buttons button {
+  background-color: #e0f7fa;
+  color: #000;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.task-buttons button:hover {
+  background-color: #b2ebf2;
+}
+button.selected {
+  background-color: #2575fc;
+  color: white;
+  border: 2px solid #1143cb;
+}
+/* Style for the upload and submit buttons */
+button {
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1143cb;
+}
+
+input[type="file"] {
+  display: block;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+#upload-results {
+  margin-top: 10px;
+  font-size: 14px;
+}
+/* Center the upload section */
+#upload-section {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+}
+
+/* Style the file input */
+#fileInput {
+  display: block;
+  margin: 20px auto;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px dashed #2575fc;
+  border-radius: 5px;
+  background-color: #f0f8ff;
+  cursor: pointer;
+}
+
+/* Style the submit button */
+button {
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #1143cb;
+}
+
+/* Style the results message */
+#upload-results {
+  margin-top: 20px;
+  font-size: 14px;
+}
+/* Style for algorithm buttons */
+.algo-button {
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.algo-button:hover {
+  background-color: #1143cb;
+}
+
+.algo-button.selected {
+  background-color: #1143cb;
+  border: 2px solid #0a2a6c;
+}
+/* Footer */
+footer {
+  background: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+}
