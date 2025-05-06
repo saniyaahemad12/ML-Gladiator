@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results - ML Gladiator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='result.css') }}">
+</head>
+<body>
+  <header class="hero-section">
+    <h1>Results for {{ task.capitalize() }}</h1>
+    <p>Here are the performance metrics for the selected algorithms.</p>
+  </header>
+
+  <section id="results" class="section">
+    <div class="result-cards">
+      {% for algo, metrics in results.items() %}
+      <div class="result-card">
+        <h3>{{ algo }}</h3>
+        {% if metrics.error %}
+        <p style="color: red;">Error: {{ metrics.error }}</p>
+        {% else %}
+        <p>Accuracy: {{ metrics.accuracy or 'N/A' }}</p>
+        <p>Precision: {{ metrics.precision or 'N/A' }}</p>
+        <p>Recall: {{ metrics.recall or 'N/A' }}</p>
+        <p>F1 Score: {{ metrics.f1_score or 'N/A' }}</p>
+        <p>MSE: {{ metrics.mse or 'N/A' }}</p>
+        <p>R² Score: {{ metrics.r2_score or 'N/A' }}</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by Saniya Ahemad | ML Gladiator</p>
+  </footer>
+</body>
+</html>
