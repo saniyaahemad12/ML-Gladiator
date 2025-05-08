@@ -1,0 +1,65 @@
+/* General Body Styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Header Styling */
+  header.hero-section {
+    background-color: #2e3b4e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin: 0;
+    font-size: 2.5em;
+  }
+  
+  header p {
+    font-size: 1.2em;
+  }
+  
+  /* Result Cards Styling */
+  #results .result-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .result-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 250px;
+    text-align: center;
+    transition: transform 0.3s;
+  }
+  
+  .result-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+  }
+  
+  .result-card p {
+    font-size: 1.2em;
+  }
+  
+  .result-card:hover {
+    transform: scale(1.05);
+  }
+  
+  
+  /* Footer Styling */
+  footer {
+    background-color: #2e3b4e;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+  
